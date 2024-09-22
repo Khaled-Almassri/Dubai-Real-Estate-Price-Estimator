@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dubai Real Estate Price Estimator</title>
+    <link rel="stylesheet" href="app.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <footer>
+        &copy; Khaled Almassri 2024
+      </footer>
+    
+    
+    <button class="back-button" onclick="previousQuestion()" style="display: none;">←</button>
+
+    
+    <div id="progressBar">
+        <div id="progress"></div>
+    </div>
+
+    <div class="center-container">
+
+        <div id="welcomePage" class="card active">
+            <h1>Welcome to the Dubai Real Estate Price Estimator</h1>
+            <p>Click the button below to start.</p>
+            <button onclick="startQuestionnaire()">Start</button>
+        </div>
+
+        
+        <div id="question1" class="card">
+            <label for="neighborhood">1. Where is the property located ?</label>
+            <select id="neighborhood" name="neighborhood" onchange="nextQuestion(1, 2)">
+                <option value="Downtown Dubai">Downtown Dubai</option>
+                <option value="Dubai Marina">Dubai Marina</option>
+                <option value="Jumeirah Village Circle">Jumeirah Village Circle</option>
+                <option value="Palm Jumeirah">Palm Jumeirah</option>
+                <option value="Jumeirah Beach Residence">Jumeirah Beach Residence</option>
+                <option value="Other">Other</option>
+                <option value="Business Bay">Business Bay</option>
+                <option value="Jumeirah Lake Towers">Jumeirah Lake Towers</option>
+                <option value="Dubai Hills Estate">Dubai Hills Estate</option>
+                <option value="The Views">The Views</option>
+                <option value="Jumeirah">Jumeirah</option>
+                <option value="Dubai Creek Harbour (The Lagoons)">Dubai Creek Harbour (The Lagoons)</option>
+                <option value="Mohammed Bin Rashid City">Mohammed Bin Rashid City</option>
+                <option value="DIFC">DIFC</option>
+                <option value="Greens">Greens</option>
+                <option value="Town Square">Town Square</option>
+                <option value="Motor City">Motor City</option>
+                <option value="Dubai Sports City">Dubai Sports City</option>
+                <option value="Al Furjan">Al Furjan</option>
+                <option value="DAMAC Hills">DAMAC Hills</option>
+                <option value="Meydan">Meydan</option>
+                <option value="Old Town">Old Town</option>
+                <option value="City Walk">City Walk</option>
+                <option value="Umm Suqeim">Umm Suqeim</option>
+                <option value="Dubai Silicon Oasis">Dubai Silicon Oasis</option>
+                <option value="The Hills">The Hills</option>
+                <option value="Arjan">Arjan</option>
+                <option value="Culture Village">Culture Village</option>
+                <option value="Dubai Land">Dubai Land</option>
+
+            </select>
+        </div>
+
+        <div id="question2" class="card">
+            <label for="size_in_sqft">2. What is the size of the property in square feet ?</label>
+            <input type="range" id="size_in_sqft" name="size_in_sqft" min="200" max="10000" value="200" oninput="updateSliderValue()">
+            <output id="sliderValue">200</output>
+            <button onclick="nextQuestion(2, 3)">Next</button>
+        </div>
+
+        <div id="question3" class="card">
+            <label for="no_of_bedrooms">3. How many bedrooms are there in the property ?</label>
+            <select id="no_of_bedrooms" name="no_of_bedrooms" onchange="nextQuestion(3, 4)">
+                <option value="0">select an option</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7+">7+</option>
+            </select>
+        </div>
+
+        <div id="question4" class="card">
+            <label for="no_of_bathrooms">4. How many bathrooms are there in the property ?</label>
+            <select id="no_of_bathrooms" name="no_of_bathrooms" onchange="nextQuestion(4, 5)">
+                <option value="0">select an option</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7+">7+</option>
+            </select>
+        </div>
+
+        <div id="question5" class="card">
+            <label for="quality_encoded">4. How is the quality of the property ?</label>
+            <select id="quality_encoded" name="quality_encoded" onchange="nextQuestion(5, 6)">
+                <option value="0">select an option</option>
+                <option value="0">Low</option>
+                <option value="1">Medium</option>
+                <option value="2">High</option>
+                <option value="3">Ultra</option>
+            </select>
+        </div>
+
+        <div id="question6" class="card">
+            <label>5. Does the property have a maid room?</label>
+            <label>
+                <input type="radio" name="maid_room" value="1" onclick="nextQuestion(6, 7)"> Yes
+            </label>
+            <label>
+                <input type="radio" name="maid_room" value="0" onclick="nextQuestion(6, 7)"> No
+            </label>
+        </div>
+
+        <div id="question7" class="card">
+            <label>7. Is the property unfurnished ?</label>
+            <label>
+                <input type="radio" name="unfurnished" value="1" onclick="nextQuestion(7, 8)"> Yes
+            </label>
+            <label>
+                <input type="radio" name="unfurnished" value="0" onclick="nextQuestion(7, 8)"> No
+            </label>
+        </div>
+
+        <div id="question8" class="card">
+            <label>8. Does the property have a balcony ?</label>
+            <label>
+                <input type="radio" name="balcony" value="1" onclick="nextQuestion(8, 9)"> Yes
+            </label>
+            <label>
+                <input type="radio" name="balcony" value="0" onclick="nextQuestion(8, 9)"> No
+            </label>
+        </div>
+
+        <div id="question9" class="card">
+            <label>9. Does the property have central AC ?</label>
+            <label>
+                <input type="radio" name="central_ac" value="1" onclick="nextQuestion(9, 10)"> Yes
+            </label>
+            <label>
+                <input type="radio" name="central_ac" value="0" onclick="nextQuestion(9, 10)"> No
+            </label>
+        </div>
+
+        <div id="question10" class="card">
+            <label>10. Does the property have a childrens play area ?</label>
+            <label>
+                <input type="radio" name="childrens_play_area" value="1" onclick="nextQuestion(10, 11)"> Yes
+            </label>
+            <label>
+                <input type="radio" name="childrens_play_area" value="0" onclick="nextQuestion(10, 11)"> No
+            </label>
+        </div>
+
+        <div id="question11" class="card">
+            <label>11. Does the property have covered parking ?</label>
+            <label>
+                <input type="radio" name="covered_parking" value="1" onclick="nextQuestion(11, 12)"> Yes
+            </label>
+            <label>
+                <input type="radio" name="covered_parking" value="0" onclick="nextQuestion(11, 12)"> No
+            </label>
+        </div>
+
+        <div id="question12" class="card">
+            <label>12. Does the property have a private pool?</label>
+            <label>
+                <input type="radio" name="private_pool" value="1" onclick="nextQuestion(12, 13)"> Yes
+            </label>
+            <label>
+                <input type="radio" name="private_pool" value="0" onclick="nextQuestion(12, 13)"> No
+            </label>
+        </div>
+
+        <div id="question13" class="card">
+            <label>13. Does the property have security guards ?</label>
+            <label>
+                <input type="radio" name="security" value="1" onclick="nextQuestion(13, 14)"> Yes
+            </label>
+            <label>
+                <input type="radio" name="security" value="0" onclick="nextQuestion(13, 14)"> No
+            </label>
+        </div>
+
+        <div id="question14" class="card">
+            <label>14. Does the property have a shared gym ?</label>
+            <label>
+                <input type="radio" name="shared_gym" value="1" onclick="nextQuestion(14, 15)"> Yes
+            </label>
+            <label>
+                <input type="radio" name="shared_gym" value="0" onclick="nextQuestion(14, 15)"> No
+            </label>
+        </div>
+
+        <div id="question15" class="card">
+            <label>15. Does the property have a shared pool ?</label>
+            <label>
+                <input type="radio" name="shared_pool" value="1" onclick="nextQuestion(15, 16)"> Yes
+            </label>
+            <label>
+                <input type="radio" name="shared_pool" value="0" onclick="nextQuestion(15, 16)"> No
+            </label>
+        </div>
+
+        <div id="question16" class="card">
+            <label>16. Does the property have a landmark view ?</label>
+            <label>
+                <input type="radio" name="view_of_landmark" value="1" onclick="nextQuestion(16, 17)"> Yes
+            </label>
+            <label>
+                <input type="radio" name="view_of_landmark" value="0" onclick="nextQuestion(16, 17)"> No
+            </label>
+        </div>
+
+        <div id="question17" class="card">
+            <label>17. Does the property have a sea view ?</label>
+            <label>
+                <input type="radio" name="view_of_water" value="1" onclick="nextQuestion(17, 17)"> Yes
+            </label>
+            <label>
+                <input type="radio" name="view_of_water" value="0" onclick="nextQuestion(17, 17)"> No
+            </label>
+        </div>
+
+
+        
+        <div class="navigation">
+            <button id="submitButton" style="display: none;" onclick="submitForm()">Submit</button>
+        </div>
+
+        
+        <div id="endingPage" class="card">
+            <h1>Thank You!</h1>
+            <p>Based on your responses, the property is valued around</p>
+            <div id="uiEstimatedPrice" class="result">	<h2></h2> </div>
+            <button onclick="restartQuestionnaire()">Restart</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
